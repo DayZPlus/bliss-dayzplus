@@ -1,0 +1,1 @@
+INSERT INTO `world` (`id`, `name`, `max_x`, `max_y`) VALUES (12, 'dayzplus', 15360, 15360);
