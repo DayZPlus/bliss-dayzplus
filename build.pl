@@ -87,7 +87,7 @@ if ($args{'help'}) {
 }
 
 die "FATAL: Source dir $src_dir does not exist\n" unless (-d $src_dir);
-die "FATAL: Mission dir $msn_dir/world/$args{'world'} does not exist\n" unless (-d "$msn_dir/world/$args{'world'}");
+die "FATAL: Mission dir $msn_dir/world/$args{'world'} does not exist\n" unless (-d "$msn_dir/world/$args{'world'}" || lc($args{'world'}) eq "dayzplus");
 
 # Create deploy directory and get build paths ready
 copy_dir("$base_dir/util/deploy", $dst_dir) unless (-d $dst_dir);
@@ -97,6 +97,11 @@ make_path($tmp_dir) unless (-d $tmp_dir);
 my $profile  = "dayz_$args{'instance'}.$args{'world'}";
 my $src      = "$base_dir/util/dayz_config";
 my $conf_dir = "$dst_dir/$profile";
+
+if(lc($args{'world'}) eq "dayzplus")
+{
+     $profile = "dayz_$args{'instance'}.Chernarus";
+}
 
 # Only create config directory if it does not exist
 if (-d $src && !-d $conf_dir) {
@@ -115,7 +120,8 @@ if (-d $src && !-d $conf_dir) {
 		'panthera2' => '@dayzpanthera',
 		'namalsk'   => '@dayz;@dayz_namalsk',
 		'mbg_celle2'=> '@dayz_celle;@mbg_celle',
-		'tavi'      => '@taviana'
+		'tavi'      => '@taviana',
+		'dayzplus' => '@DayZ+'
 	};
 	my $mod = ((defined $mods->{$args{'world'}}) ? "$mods->{$args{'world'}}" : '@dayz') . ";\@bliss_$args{'instance'}.$args{'world'}";
 
@@ -191,8 +197,15 @@ if (scalar(@pkgs) > 0) {
 
 pack_world();
 
-# Create the mission PBO
-copy_dir("$msn_dir/world/$args{'world'}", $msn_build_dir);
+# Create the mission PBO ----
+if(lc($args{'world'}) eq "dayzplus")
+{
+	copy_dir("$msn_dir/world/chernarus", $msn_build_dir);
+}
+else
+{
+	copy_dir("$msn_dir/world/$args{'world'}", $msn_build_dir);
+}
 if (scalar(@msn_pkgs) > 0) {
 	merge_packages(\@msn_pkgs, $msn_build_dir, $msn_build_dir, 1);
 }
@@ -298,7 +311,11 @@ sub merge_packages {
                         copy_dir($src, $src_tmp);
 
 			if ($mission) {
-				complex_merge("$msn_dir/world/$args{'world'}", $src, $src_tmp);
+				if(lc($args{'world'}) eq "dayzplus") {
+					complex_merge("$msn_dir/world/chernarus", $src, $src_tmp);
+				} else {
+					complex_merge("$msn_dir/world/$args{'world'}", $src, $src_tmp);
+				}
 			} else {
 				complex_merge($bls_dir, "$wld_dir/$args{'world'}", $src_tmp);
 			}
@@ -392,6 +409,11 @@ sub pack_mission {
 	my $src  = "$tmp_dir/mission_tmp";
 	my $dst  = "$dst_dir/MPMissions";
 	my $name = "dayz_$args{'instance'}.$args{'world'}";
+	
+	if(lc($args{'world'}) eq "dayzplus")
+	{
+		$name = "dayz_$args{'instance'}.Chernarus";
+	}
 
 	# Substitute the instance ID into init.sqf
 	replace_text("s/dayZ_instance\\s=\\s[0-9]*/dayZ_instance = $args{'instance'}/", "$src/init.sqf");
