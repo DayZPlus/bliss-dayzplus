@@ -82,6 +82,38 @@ EndSQL
 	$sth->execute() or die "FATAL: Could not clean up old deployables - " . $sth->errstr . "\n";
 }
 
+if ($cleanup eq 'dayzplus') {
+	print "INFO: Cleaning up DayZ+ construction items\n";
+	$sth = $dbh->prepare(<<EndSQL
+UPDATE 
+	instance_deployable, 
+	survivor 
+SET 
+	instance_deployable.owner_id = 0, 
+	instance_deployable.last_updated = CURDATE() 
+WHERE 
+	instance_deployable.owner_id = survivor.unique_id AND 
+	survivor.is_dead = 1 AND 
+	DATE(survivor.last_updated) < CURDATE() - INTERVAL 3 DAY;
+EndSQL
+) or die "FATAL SQL ERROR - " . DBI->errstr . "\n";
+	$sth->execute() or die "FATAL: Could not clean up old DayZ+ deployable items older than 3 days - " . $sth->errstr . "\n";
+	
+	$sth = $dbh->prepare(<<EndSQL
+UPDATE 
+	instance_deployable, 
+	survivor 
+SET 
+	instance_deployable.owner_id = 0, 
+	instance_deployable.last_updated = CURDATE() 
+WHERE 
+	instance_deployable.owner_id = survivor.unique_id AND 
+	DATE(survivor.last_updated) < CURDATE() - INTERVAL 7 DAY;
+EndSQL
+) or die "FATAL SQL ERROR - " . DBI->errstr . "\n";
+	$sth->execute() or die "FATAL: Could not clean up old DayZ+ deployable items older than 7 days - " . $sth->errstr . "\n";
+}
+
 if ($cleanup eq 'tents' || $cleanup eq 'all') {
 	print "INFO: Cleaning up tents with dead owners older than four days\n";
 	$sth = $dbh->prepare(<<EndSQL
@@ -221,4 +253,3 @@ print "INFO: Spawned $spawnCount vehicles\n";
 $spawns->finish();
 $insert->finish();
 $dbh->disconnect();
-
