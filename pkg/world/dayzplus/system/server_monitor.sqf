@@ -191,14 +191,16 @@ if (isDedicated) then {
 
 allowConnection = true;
 
-for "_x" from 1 to 3 do {
-	_id = [] call spawn_UH1YCrashSite;
-};
-
-for "_x" from 1 to 2 do {
-	_id = [] call spawn_UH60CrashSite;
-};
-
 for "_x" from 1 to 5 do {
 	//do nothing - just to be compatible to bliss packages
 }; //Spawn heli crash
+
+//spawn huey crashsites
+for "_x" from 1 to 3 do {
+	_id = [] call server_hueycrash;
+};
+
+//spawn blackhawk crashsites
+for "_x" from 1 to 2 do {
+	_id = [] call server_blackhawkcrash;
+};
