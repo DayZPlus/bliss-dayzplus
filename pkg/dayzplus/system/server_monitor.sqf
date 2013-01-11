@@ -191,9 +191,9 @@ if (isDedicated) then {
 
 allowConnection = true;
 
-/*for "_x" from 1 to 5 do {
-	_id = [] spawn spawn_heliCrash;
-}; //Spawn heli crash*/
+for "_x" from 1 to 5 do {
+	//do nothing - just to be compatible to bliss packages
+}; //Spawn heli crash
 
 // Spawn UH1Y Crashsite's - DayZ+
 for "_x" from 1 to 3 do {
