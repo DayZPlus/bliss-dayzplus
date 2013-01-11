@@ -1,7 +1,0 @@
-INSERT INTO `vehicle` VALUES ('94', 'M1030', '0.300', '0.900', '0.300', '0.700', '0', '5', 'motor', '[]');
-INSERT INTO `vehicle` VALUES ('95', 'Lada2', '0.050', '0.050', '0.000', '0.500', '0', '2', 'motor,karoserie,palivo,wheel_1_1_steering,wheel_2_1_steering,wheel_1_2_steering,wheel_2_2_steering,sklo predni P,sklo predni L,glass1,glass2,glass3', '[]');
-INSERT INTO `vehicle` VALUES ('96', 'datsun1_civil_1_open', '0.050', '0.050', '0.000', '0.500', '0', '1', 'motor,karoserie,palivo,wheel_1_1_steering,wheel_2_1_steering,wheel_1_2_steering,wheel_2_2_steering,sklo predni P,sklo predni L,glass1,glass2,glass3', '[]');
-INSERT INTO `vehicle` VALUES ('97', 'UralOpen_CDF', '0.100', '0.700', '0.200', '0.800', '1', '1', 'palivo,motor,karoserie,wheel_1_1_steering,wheel_1_2_steering,wheel_2_1_steering,wheel_2_2_steering', '[]');
-INSERT INTO `vehicle` VALUES ('98', 'DZP_Mi17', '0.100', '0.500', '0.000', '0.500', '0', '1', 'motor,elektronika,mala vrtule,velka vrtule', '[]');
-INSERT INTO `vehicle` VALUES ('99', 'DZP_AN2', '0.600', '0.900', '0.200', '0.500', '0', '1', null, '[]');
-INSERT INTO `vehicle` VALUES ('100', 'DZP_MH6J', '0.100', '0.500', '0.000', '0.500', '0', '2', 'motor,elektronika,mala vrtule,velka vrtule', '[]');
