@@ -14,6 +14,13 @@ if (vehicle _object != _object) then {
 
 if (59 in _playerIDtoarray) exitWith { 	diag_log ("Exited"); };
 
+/*if ((_timeout - time) > 0) then {
+	_timeout = _object getVariable["combattimeout",0];
+	diag_log format["COMBAT LOGGED: %1 (%2)", _playerName,_timeout];
+};
+
+diag_log format["DISCONNECT: %1 (%2) Object: %3, _characterID: %4", _playerName,_playerID,_object,_characterID];*/
+
 if (_isInCombat > 0) then {
 	diag_log format ["COMBATLOG: %1 (%2) Combat Logged", _playerName, _playerID];
 	dayz_combatLog = _playerName;
@@ -29,10 +36,11 @@ if (!isNull _object) then {
 
 	if (alive _object) then {
 		[_object, (magazines _object), true] call server_playerSync;
+		[_playerID,_characterID,2] spawn dayz_recordLogin;
 		_myGroup = group _object;
 		deleteVehicle _object;
 		deleteGroup _myGroup;
 	};
-
-	[_playerID,_characterID,2] call dayz_recordLogin;
+	
+	[_playerID,_characterID,2] spawn dayz_recordLogin;
 };
