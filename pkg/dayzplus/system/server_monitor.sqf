@@ -191,10 +191,6 @@ if (isDedicated) then {
 
 allowConnection = true;
 
-/*for "_x" from 1 to 5 do {
-	_id = [] spawn spawn_heliCrash;
-}; //Spawn heli crash*/
-
 //spawn huey crashsites
 for "_x" from 1 to 3 do {
 	_id = [] call server_hueycrash;
@@ -204,3 +200,7 @@ for "_x" from 1 to 3 do {
 for "_x" from 1 to 2 do {
 	_id = [] call server_blackhawkcrash;
 };
+
+/*for "_x" from 1 to 5 do {
+	_id = [] spawn spawn_heliCrash;
+}; //Spawn heli crash*/
