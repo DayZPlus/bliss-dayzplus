@@ -56,6 +56,10 @@ server_characterSync = {
 	_key call server_hiveWrite;
 };
 
+// DayZ+ functions
+server_hueycrash = 		compile preprocessFileLineNumbers "\z\addons\dayz_server\compile\server_hueycrash.sqf";
+server_blackhawkcrash = 	compile preprocessFileLineNumbers "\z\addons\dayz_server\compile\server_blackhawkcrash.sqf";
+
 //was missing for server
 fnc_buildWeightedArray = 	compile preprocessFileLineNumbers "\z\addons\dayz_code\compile\fn_buildWeightedArray.sqf";		//Checks which actions for nearby casualty
 
@@ -78,57 +82,6 @@ server_hiveReadWrite = {
 	_resultArray = call compile format ["%1;",_data];
 	_resultArray;
 };
-
-/*spawn_heliCrash = {
-	private["_position","_veh","_num","_config","_itemType","_itemChance","_weights","_index","_iArray"];
-	
-	waitUntil{!isNil "BIS_fnc_selectRandom"};
-	if (isDedicated) then {
-	_position = [getMarkerPos "center",0,4000,10,0,2000,0] call BIS_fnc_findSafePos;
-	diag_log("DEBUG: Spawning a crashed helicopter at " + str(_position));
-	_veh = createVehicle ["UH1Wreck_DZ",_position, [], 0, "CAN_COLLIDE"];
-	dayz_serverObjectMonitor set [count dayz_serverObjectMonitor,_veh];
-	_veh setVariable ["ObjectID",1,true];
-	dayzFire = [_veh,2,time,false,false];
-	publicVariable "dayzFire";
-	if (isServer) then {
-		nul=dayzFire spawn BIS_Effects_Burn;
-	};
-	_num = round(random 4) + 3;
-	_config = 		configFile >> "CfgBuildingLoot" >> "HeliCrash";
-	_itemType =		[] + getArray (_config >> "itemType");
-	//diag_log ("DW_DEBUG: _itemType: " + str(_itemType));	
-	_itemChance =	[] + getArray (_config >> "itemChance");
-	//diag_log ("DW_DEBUG: _itemChance: " + str(_itemChance));	
-	//diag_log ("DW_DEBUG: (isnil fnc_buildWeightedArray): " + str(isnil "fnc_buildWeightedArray"));	
-	
-	waituntil {!isnil "fnc_buildWeightedArray"};
-	
-	_weights = [];
-	_weights = 		[_itemType,_itemChance] call fnc_buildWeightedArray;
-	//diag_log ("DW_DEBUG: _weights: " + str(_weights));	
-	for "_x" from 1 to _num do {
-		//create loot
-		_index = _weights call BIS_fnc_selectRandom;
-		sleep 1;
-		if (count _itemType > _index) then {
-			//diag_log ("DW_DEBUG: " + str(count (_itemType)) + " select " + str(_index));
-			_iArray = _itemType select _index;
-			_iArray set [2,_position];
-			_iArray set [3,5];
-			_iArray call spawn_loot;
-			_nearby = _position nearObjects ["WeaponHolder",20];
-			{
-				_x setVariable ["permaLoot",true];
-			} forEach _nearBy;
-		};
-	};
-	};
-};*/
-
-// DayZ+ functions
-server_hueycrash = 		compile preprocessFileLineNumbers "\z\addons\dayz_server\compile\server_hueycrash.sqf";
-server_blackhawkcrash = 	compile preprocessFileLineNumbers "\z\addons\dayz_server\compile\server_blackhawkcrash.sqf";
 
 server_getDiff =	{
 	private["_variable","_object","_vNew","_vOld","_result"];

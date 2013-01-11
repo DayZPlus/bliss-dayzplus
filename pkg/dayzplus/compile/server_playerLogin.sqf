@@ -63,12 +63,8 @@ _backpack  = _primary select 5;
 _survival  = _primary select 6;
 _model     = _primary select 7;
 _hiveVer   = _primary select 8;
-
-	/*if (!(_model in ["SurvivorW2_DZ","Survivor2_DZ","Survivor3_DZ","Sniper1_DZ","Soldier1_DZ","Camo1_DZ","Bandit1_DZ","Rocket_DZ"])) then {
-		_model = "Survivor2_DZ";
-	};*/
-
-	if (!(_model in ["SurvivorW2_DZ","Survivor2_DZ","Sniper1_DZ","Soldier1_DZ","Camo1_DZ","Camo2_DZ","Camo3_DZ","Camo4_DZ","Camo5_DZ","Santa1_DZ","BanditW1_DZ","Bandit1_DZ","Rocket_DZ","SurvivorW2_DZ","Sniper2_DZ","Net_DZ"])) then {
+	
+	if (!(_model in ["SurvivorW2_DZ","Survivor2_DZ","Sniper1_DZ","Soldier1_DZ","Camo1_DZ","Camo2_DZ","Camo3_DZ","Camo4_DZ","Camo5_DZ","Santa1_DZ","BanditW1_DZ","Bandit1_DZ","SurvivorW2_DZ","Sniper2_DZ","Net_DZ"])) then {
 		_model = "Survivor2_DZ";
 	};
 
